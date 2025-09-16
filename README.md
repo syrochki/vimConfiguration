@@ -55,8 +55,8 @@ vim +PlugInstall +qall
 | Комбинация | Действие |
 |------------|----------|
 | <kbd>Ctrl</kbd> + <kbd>n</kbd> | Открыть NERDTree |
-| <kbd>Ctrl<kbd/> + <kbd>t</kbd> | Открыть/закрыть структуру файлов проекта |
-| <kbd>Ctrl<kbd/> + <kbd>f</kbd> | Найти файл в структуре проекта |
+| <kbd>Ctrl</kbd> + <kbd>t</kbd> | Открыть/закрыть структуру файлов проекта |
+| <kbd>Ctrl</kbd> + <kbd>f</kbd> | Найти файл в структуре проекта |
 | <kbd>Ctrl</kbd> + <kbd>p</kbd> | Поиск файлов (FZF) |
 | <kbd>Space</kbd> + <kbd>g</kbd> | Поиск git-файлов |
 | <kbd>Space</kbd> + <kbd>b</kbd> | Список буферов |
