@@ -1,66 +1,146 @@
-".vimrc config // created by Syrochki
+" ** start of .vimrc config **
 
+" =======================
+" .vimrc config made by syrochki
+" https://github.com/Syrochki/vimConfiguration
+" =======================
+
+
+" =======================
+"     Plugins
+" =======================
 call plug#begin()
-" The default plugin directory will be as follows:
-"   - Vim (Linux/macOS): '~/.vim/plugged'
-"   - Vim (Windows): '~/vimfiles/plugged'
-"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
-" You can specify a custom plugin directory by passing it as the argument
-"   - e.g. `call plug#begin('~/.vim/plugged')`
-"   - Avoid using standard Vim directory names like 'plugin'
-" On-demand loading: loaded when the specified command is executed
 
+" Файловый менеджер
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 
+" Подсветка синтаксиса для множества языков
 Plug 'sheerun/vim-polyglot'
 
+" Цветовые схемы
+Plug 'morhetz/gruvbox'
 Plug 'phanviet/vim-monokai-pro'
 
-Plug 'joshdick/onedark.vim'
-
-Plug 'junegunn/seoul256.vim'
-
+" Лёгкий статусбар
 Plug 'itchyny/lightline.vim'
 
+" Git-интеграция
+Plug 'tpope/vim-fugitive'
 
-" Call plug#end to update &runtimepath and initialize the plugin system.
-" - It automatically executes `filetype plugin indent on` and `syntax enable`
+" Быстрый поиск файлов/строк
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
-" Color schemes should be loaded after plug#end().
 
+" =======================
+"     UI Settings
+" =======================
+syntax on                 " Подсветка синтаксиса
+set termguicolors         " 24-битные цвета (iTerm2)
+set background=dark       " Тёмный фон
+colorscheme gruvbox       " Цветовая схема
 
-colorscheme monokai_pro
+set number                " Номера строк
+set cursorline            " Подсветка текущей строки
+set laststatus=2          " Всегда показывать статусбар
+set noshowmode            " Не показывать -- INSERT 
+set nowrap                " Не переносить строки автоматически
+set scrolloff=4           " Минимум 4 строки вокруг курсора
+set history=1000          " Длина истории команд
+set mouse=a               " Поддержка мыши
 
-syntax on
+" =======================
+"     Indentation
+" =======================
+set expandtab             " Таб = пробелы
+set tabstop=4             " Ширина таба = 4 пробела
+set shiftwidth=4          " Отступ для >> и << = 4 пробела
 
-set background=dark
+" =======================
+"     Search
+" =======================
+set hlsearch              " Подсвечивать найденное
+set incsearch             " Подсветка во время ввода
+set ignorecase            " Поиск без учёта регистра
+set smartcase             " Если есть большие буквы → регистр учитывается
 
-set laststatus=2
-set nocompatible
-set termguicolors
-set number
-set cursorline
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set scrolloff=4
-set noswapfile
-set noshowmode
-set showmatch
-set hlsearch
-set incsearch
-set ignorecase
-set nowrap
-set history=1000
+" =======================
+"     Wildmenu
+" =======================
+set wildmenu              " Меню автодополнения
+set wildmode=list:longest " Поведение как в bash/zsh
 
-" Enable auto completion menu after pressing TAB.
-set wildmenu
+" =======================
+"     Swap/backup
+" =======================
+set noswapfile            " Не создавать .swp файлы
 
-" Make wildmenu behave like similar to Bash completion.
-set wildmode=list:longest
+" =======================
+"     <leader> button
+" =======================
+let mapleader=" "        " Главная клавиша -- пробел
 
-"mappings
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+" =======================
+"     Statusline (lightline)
+" =======================
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
+" =======================
+"     NERDTree Settings
+" =======================
+nnoremap <C-n> :NERDTree<CR>          " Открыть дерево
+nnoremap <C-t> :NERDTreeToggle<CR>    " Переключить дерево
+nnoremap <C-f> :NERDTreeFind<CR>      " Найти текущий файл
+
+" Автооткрытие NERDTree при старте + возврат фокуса в редактор
+autocmd VimEnter * NERDTree | wincmd p
+autocmd BufWinEnter * if bufname('#') =~ 'NERD_tree_' | wincmd p | endif
+
+" Закрыть vim, если остался только NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | quit | endif
+
+" =======================
+"     Window Navigation
+" =======================
+" Переключение между окнами (Ctrl + hjkl)
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Ресайз окон
+nnoremap <silent> wh :vertical resize -2<CR>
+nnoremap <silent> wj :resize -2<CR>
+nnoremap <silent> wk :resize +2<CR>
+nnoremap <silent> wl :vertical resize<CR>
+
+" Переключение между табами <leader> + n(цифра вкладки)
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
+
+"
+" =======================
+"     FZF Shortcuts
+" =======================
+nnoremap <C-p> :Files<CR>        " Поиск файлов
+nnoremap <leader>g :GFiles<CR>   " Поиск файлов из git
+nnoremap <leader>b :Buffers<CR>  " Список открытых буферов
+nnoremap <leader>l :Lines<CR>    " Поиск по строкам в открытых файлах
+
+" ** end of .vimrc config **
