@@ -1,4 +1,4 @@
-# Vim Configuration by Syrochki
+# Vim Configuration by syrochki
 
 ![Vim](https://img.shields.io/badge/Vim-✓-green?style=flat-square)
 ![Neovim](https://img.shields.io/badge/Neovim-✓-green?style=flat-square)
@@ -153,10 +153,10 @@ vim +PlugClean +PlugInstall +qall
 
 ## 👤 Автор
 
-**Syrochki**
+**syrochki**
 
-- GitHub: [@Syrochki](https://github.com/Syrochki)
-- Репозиторий: [vimConfiguration](https://github.com/Syrochki/vimConfiguration)
+- GitHub: [@syrochki](https://github.com/syrochki)
+- Репозиторий: [vimConfiguration](https://github.com/syrochki/vimConfiguration)
 
 ---
 
